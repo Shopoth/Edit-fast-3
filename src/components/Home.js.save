@@ -1,0 +1,91 @@
+import React, { useState } from 'react';
+
+const ImageFilterApp = () => {
+  const [filters, setFilters] = useState({
+    contrast: 100,
+    brightness: 100,
+    saturate: 100,
+    hue:100,
+  });
+
+  const handleFilterChange = ((filter, value) => {
+   setFilters((prevFilters) => ({ ...prevFilters, [filter]: value }))
+  });
+
+  return (
+    <div className="p-10 min-h-screen flex items-center justify-center">
+      <div className="bg-purple-400 w-80% p-5 flex rounded-lg flex-col shadow-lg md:flex-row md:justify-start">
+        <img
+          src="madarauchiha.jpeg"
+          alt="A girl"
+          id="editedImg"
+          style={{
+            filter: `contrast(${filters.contrast}%) brightness(${filters.brightness}%) saturate(${filters.saturate}%) hue-rotate(${filters.hue}deg)`,
+          }}
+          className="md:w-3/6 rounded-lg shadow-lg md:mr-8 md:mb-0"
+        />
+        <div className="w-11/12 my-3 mx-3 md:my-0 flex  flex-col">
+          <label htmlFor="contrast" className="text-purple-800 mb-2">
+            Contrast: {filters.contrast}%
+          </label>
+          <input
+            type="range"
+            id="contrast"
+            min="100"
+            max="300"
+            step="1"
+            value={filters.contrast}
+            onChange={(e) => handleFilterChange('contrast', e.target.value)}
+            className="mb-4"
+          />
+
+          <label htmlFor="brightness" className="text-purple-800 mb-2">
+            Brightness: {filters.brightness}%
+          </label>
+          <input
+            type="range"
+            id="brightness"
+            min="0"
+            max="200"
+            step="1"
+            value={filters.brightness}
+            onChange={(e) => handleFilterChange('brightness', e.target.value)}
+            className=" mb-4"
+          />
+
+          <label htmlFor="saturate" className="text-purple-800 mb-2">
+            Saturate: {filters.saturate}%
+          </label>
+          <input
+            type="range"
+            id="saturate"
+            min="0"
+            max="200"
+            step="1"
+            value={filters.saturate}
+            className="mb-4"
+            onChange={(e) => handleFilterChange('saturate', e.target.value)}
+          />
+
+
+          <label htmlFor="saturate" className="text-purple-800 mb-2">
+            hue: {filters.hue}%
+          </label>
+          <input
+            type="range"
+            id="hue"
+            min="0"
+            max="360"
+            step="1"
+            value={filters.hue}
+            className="mb-4 w-11/12"
+            onChange={(e) => handleFilterChange('hue', e.target.value)}
+          />
+        </div>
+      </div>
+	<button download="editedImg">Download</button>
+    </div>
+  );
+};
+
+export default ImageFilterApp;
